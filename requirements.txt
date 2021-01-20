@@ -1,0 +1,7 @@
+django>=3.0,<4.0
+shell
+mysqlclient
+mysql-connector-python
+environ == 1.0
+django-environ
+pillow
