@@ -13,7 +13,8 @@ WORKDIR /src
 
 # Install dependecies
 COPY requirements.txt /src/
-RUN pip install -r requirements.txt
+RUN apt-get -y update
+RUN pip3 install -r requirements.txt
 
 # Copy project
 COPY . /src/
