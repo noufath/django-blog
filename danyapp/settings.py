@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-     # MyAPP
-     'polls.apps.PollsConfig',
-     'danynotes.apps.DanynotesConfig',
+    # MyAPP
+    'polls.apps.PollsConfig',
+    'danynotes.apps.DanynotesConfig',
+    'tinymce',
      
      
 ]
@@ -65,8 +66,7 @@ ROOT_URLCONF = 'danyapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                os.path.join(BASE_DIR, 'danynotes', 'templates', 'danynotes')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'danynotes', 'templates', 'danynotes')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,8 +87,8 @@ WSGI_APPLICATION = 'danyapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.mysql',
         'HOST': env('DATABASE_HOST'),
         'NAME': env('DATABASE_NAME'),
@@ -142,3 +142,32 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'danynotes/static/danynotes/images')
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "danynotes/node_modules/tinymce/tinymce.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "danynotes/node_modules/tinymce")
+TINYMCE_DEFAULT_CONFIG = {
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'silver',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    # 'toolbar2': '''
+    #        visualblocks visualchars |
+    #        charmap hr pagebreak nonbreaking anchor |  code |
+    #        ''',
+    'contextmenu': 'formats | link image',
+    'menubar': False,
+    'statusbar': False,
+}

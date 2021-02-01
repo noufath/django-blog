@@ -23,7 +23,8 @@ urlpatterns = [
     # path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('blog/', views.blog, name='blog')
+    path('blog/<int:blog_id>', views.blog, name='blog'),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 

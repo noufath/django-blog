@@ -52,7 +52,8 @@ var/
 .installed.cfg
 *.egg
 djangoenv/
-
+danynotes/static/danynotes/images/
+danynotes/static/danynotes/node_modules/
 
 # PyInstaller
 # Usually these files are written by a python script from a template
@@ -88,8 +89,6 @@ target/
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
-
 .env
 db.sqlite3
 db/

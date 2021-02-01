@@ -6,3 +6,4 @@ environ == 1.0
 django-environ
 pillow
 pylint
+django-tinymce
