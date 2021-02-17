@@ -18,13 +18,31 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 from danynotes import views
+from danynotes.views import account_signup_view
+from danynotes.views import account_login_view
+from danynotes.views import account_logout_view
 
 urlpatterns = [
     # path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('blog/<int:blog_id>', views.blog, name='blog'),
+    path('create/', views.blog_create, name='blog_create'),
+    path('blog/<int:blog_id>/', views.blog, name='blog'),
+    path('blog/<int:blog_id>/update', views.blog_update, name='blog_update'),
+    path('blog/<int:blog_id>/delete', views.blog_delete, name='blog_delete'),
+    path('add-category/',
+         views.AddCategoryView.as_view(), name='add_category'),
+    path('category/<str:cats>/', views.CategoryView, name='category'),
     path('tinymce/', include('tinymce.urls')),
+    path('search/', views.search, name='search'),
+    # override the SignupView of django-allauth
+    path('accounts/signup/', view=account_signup_view),
+    # override the LoginView of django-allauth
+    path('accounts/login/', view=account_login_view, name='account_login'),
+    # override the LoginView of django-allauth
+    path('accounts/logout/', view=account_logout_view),
+    # this is the default config for django-allauth
+    path('accounts/', include('allauth.urls')),
 ]
 
 

@@ -7,3 +7,5 @@ django-environ
 pillow
 pylint
 django-tinymce
+django-crispy-forms
+django-allauth

@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Setting Environment
 env = environ.Env()
-environ.Env.read_env() 
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -42,13 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # MyAPP
     'polls.apps.PollsConfig',
     'danynotes.apps.DanynotesConfig',
     'tinymce',
-     
-     
+    'crispy_forms',
+    # Allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -61,12 +64,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 ROOT_URLCONF = 'danyapp.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'danynotes', 'templates', 'danynotes')],
+        'DIRS': [
+                os.path.join(BASE_DIR, 'danynotes', 'templates', 'danynotes')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,16 +111,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+            UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+            MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+            CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+            NumericPasswordValidator',
     },
 ]
 
@@ -143,7 +154,9 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'danynotes/static/danynotes/images')
 
-TINYMCE_JS_URL = os.path.join(STATIC_URL, "danynotes/node_modules/tinymce/tinymce.js")
+TINYMCE_JS_URL = os.path.join(
+    STATIC_URL, "danynotes/node_modules/tinymce/tinymce.js"
+    )
 TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "danynotes/node_modules/tinymce")
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
@@ -171,3 +184,11 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': False,
     'statusbar': False,
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = 'index'
